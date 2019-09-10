@@ -91,37 +91,32 @@ export default () => {
     return wol;
   }
   return (
-    <div>
-      <div className="Game">
-        <div className="Grid">
-          {game.map((value, index) => (
-            <div
-              onClick={event => {
-                boxClicked(event.target.id);
-              }}
-              key={index}
-              className="Box"
-              id={index}
-              style={{
-                color: winningLane.includes(index) ? "green" : "inherit"
-              }}
-            >
-              {value}
-            </div>
-          ))}
-        </div>
-        <div>{isMoveX ? <div>X's Turn!</div> : <div>O's Turn!</div>}</div>
-        <div>
-          {winner && winner !== "D" ? <div>The Winner is {winner}!</div> : null}
-          {winner && winner === "D" ? <div>Draw!</div> : null}
-        </div>
-        <div>
-          <button onClick={reset}>New Game</button>
-        </div>
-        <h3>
-          X Wins = {xwins} --- Draws = {draw} --- O Wins = {owins}
-        </h3>
+    <div className="Game">
+      <div className="Grid">
+        {game.map((value, index) => (
+          <div
+            onClick={event => {
+              boxClicked(event.target.id);
+            }}
+            key={index}
+            className="Box"
+            id={index}
+            style={{color: winningLane.includes(index) ? "green" : "inherit"}}>
+            {value}
+          </div>
+        ))}
       </div>
+      <div>{isMoveX ? <div>X's Turn!</div> : <div>O's Turn!</div>}</div>
+      <div>
+        {winner && winner !== "D" ? <div>The Winner is {winner}!</div> : null}
+        {winner && winner === "D" ? <div>Draw!</div> : null}
+      </div>
+      <div>
+        <button onClick={reset}>New Game</button>
+      </div>
+      <h3>
+        X Wins = {xwins} --- Draws = {draw} --- O Wins = {owins}
+      </h3>
     </div>
   );
 };
