@@ -116,7 +116,7 @@ export default () => {
           {winner && winner === "D" ? <div>Draw!</div> : null}
         </div>
         <div>
-          <button onClick={reset}>Reset</button>
+          <button onClick={reset}>New Game</button>
         </div>
         <h3>
           X Wins = {xwins} --- Draws = {draw} --- O Wins = {owins}
