@@ -1,6 +1,7 @@
 .App {
   font-family: sans-serif;
   text-align: center;
+  background: lightgray;
 }
 
 .Game {
@@ -32,7 +33,7 @@
 }
 
 button {
-  background:lightgreen;
+  background: lightgreen;
   width: 70px;
   padding: 4px 0;
   border-radius: 3px;
@@ -41,19 +42,27 @@ button {
 button.active.focus,
 button.active:focus,
 button.focus,
-button:active.focus, 
+button:active.focus,
 button:active:focus,
 button:focus {
   outline: none;
   box-shadow: none;
 }
 
-h1 { 
-  color: #111; 
-  font-family: 'Helvetica Neue', sans-serif;
-  font-size: 30px;
+h1 {
+  font-family: "Helvetica Neue", sans-serif;
+  color: #444;
+  font-size: 45px;
   font-weight: bold;
   letter-spacing: -1px;
   line-height: 1;
+  text-align: center;
+}
+
+h3 {
+  font-family: "Helvetica Neue", sans-serif;
+  color: #444;
+  font-size: 18px;
+  font-weight: bold;
   text-align: center;
 }

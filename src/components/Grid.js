@@ -3,6 +3,7 @@ import React, { useState } from "react";
 export default () => {
   let wol;
   let count;
+
   const winConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -18,6 +19,9 @@ export default () => {
   const [isMoveX, setMoveX] = useState(true);
   const [winner, setWinner] = useState(null);
   const [winningLane, setWinningLane] = useState([]);
+  const [xwins, setXwins] = useState(0);
+  const [owins, setOwins] = useState(0);
+  const [draw, setDraws] = useState(0);
 
   function boxClicked(index) {
     if (winner != null) return;
@@ -49,6 +53,9 @@ export default () => {
 
   function reset() {
     const newGame = game.slice().fill(null);
+    if (winner === "X") setXwins(xwins + 1);
+    if (winner === "O") setOwins(owins + 1);
+    if (winner === "D") setDraws(draw + 1);
     setGame(newGame);
     setWinner(null);
     setWinningLane([]);
@@ -111,6 +118,9 @@ export default () => {
         <div>
           <button onClick={reset}>Reset</button>
         </div>
+        <h3>
+          X Wins = {xwins} --- Draws = {draw} --- O Wins = {owins}
+        </h3>
       </div>
     </div>
   );
