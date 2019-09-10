@@ -30,3 +30,17 @@
   background: lightgreen;
   opacity: 0.5;
 }
+
+button{
+  background:lightgreen;
+  width: 70px;
+  padding: 4px 0;
+  border-radius: 3px;
+}
+
+button.active.focus, button.active:focus,
+button.focus, button:active.focus, 
+button:active:focus, button:focus {
+  outline: none;
+  box-shadow: none;
+}
