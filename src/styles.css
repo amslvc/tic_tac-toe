@@ -1,0 +1,32 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.Game {
+  text-align: center;
+}
+
+.Grid {
+  display: inline-block;
+  text-align: center;
+  background: lightgray;
+  width: 300px;
+}
+
+.Box {
+  float: left;
+  width: 100px;
+  height: 100px;
+  background: white;
+  border: 1px solid;
+  box-sizing: border-box;
+  font-size: 80px;
+  line-height: 100px;
+  cursor: pointer;
+}
+
+.Box:hover {
+  background: lightgreen;
+  opacity: 0.5;
+}
