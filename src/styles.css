@@ -38,7 +38,7 @@ button {
   height: 40px;
   padding: 6px 2px;
   border-radius: 5px;
-  font-family: "Helvetica Neue", sans-serif;
+  font-family: Helvetica, sans-serif;
   color: #444;
   font-size: 13px;
   font-weight: bold;
@@ -53,7 +53,7 @@ button:hover {
 }
 
 h1 {
-  font-family: "Helvetica Neue", sans-serif;
+  font-family: Helvetica, sans-serif;
   color: #444;
   font-size: 45px;
   font-weight: bold;
@@ -63,7 +63,7 @@ h1 {
 }
 
 h3 {
-  font-family: "Helvetica Neue", sans-serif;
+  font-family: Helvetica, sans-serif;
   color: #444;
   font-size: 18px;
   font-weight: bold;
