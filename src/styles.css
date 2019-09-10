@@ -34,12 +34,22 @@
 
 button {
   background: lightgreen;
-  width: 70px;
-  padding: 4px 0;
-  border-radius: 3px;
+  width: 80px;
+  height: 40px;
+  padding: 6px 2px;
+  border-radius: 5px;
+  font-family: "Helvetica Neue", sans-serif;
+  color: #444;
+  font-size: 13px;
+  font-weight: bold;
   cursor: pointer;
   outline: none;
   box-shadow: none;
+  transition: width 1s;
+}
+
+button:hover {
+  width: 300px;
 }
 
 h1 {
