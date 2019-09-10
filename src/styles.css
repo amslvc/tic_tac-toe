@@ -38,14 +38,6 @@ button {
   padding: 4px 0;
   border-radius: 3px;
   cursor: pointer;
-}
-
-button.active.focus,
-button.active:focus,
-button.focus,
-button:active.focus,
-button:active:focus,
-button:focus {
   outline: none;
   box-shadow: none;
 }
