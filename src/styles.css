@@ -11,7 +11,7 @@
 .Grid {
   display: inline-block;
   text-align: center;
-  background: lightgray;
+  background: white;
   width: 300px;
 }
 
@@ -29,7 +29,7 @@
 
 .Box:hover {
   background: lightgreen;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 button {
