@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { is } from "@babel/types";
 
 export default () => {
   let wol;
@@ -23,12 +22,6 @@ export default () => {
   const [xwins, setXwins] = useState(0);
   const [owins, setOwins] = useState(0);
   const [draw, setDraws] = useState(0);
-
-
-
-
-
-
 
 // human
 var huPlayer = "X";
@@ -144,8 +137,6 @@ function winning(game, player){
 }
 */
 
-
-
   function pcMove(game){
     var emptyFields = new Array(game.length).fill(null);
     for (var z=0,u=0; z<game.length;z++){
@@ -155,11 +146,11 @@ function winning(game, player){
       }
     }
     const newGame = game.slice();
-    var id=emptyFields[1];
+    var id=1;
     if (!isMoveX) {
     newGame[id] = aiPlayer;
     setGame(newGame);
-    setMoveX(isMoveX);
+    setMoveX(!isMoveX);
     }
   }
 
