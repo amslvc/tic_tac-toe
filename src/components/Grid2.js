@@ -144,7 +144,7 @@ function winning(game, player){
         u++;
        }
     }
-    
+
     emptyFields=shuffle(emptyFields);
     var id=emptyFields[0];
     return id;
@@ -172,7 +172,7 @@ function winning(game, player){
     let finished = true;
     wol = gameOver(newGame);
 
-    for (let index = 0; index < newGame.length; index++) {
+    for (let index = 0; index < game.length; index++) {
       if (newGame[index] === null) {
         finished = false;
         break;
@@ -194,14 +194,14 @@ function winning(game, player){
     }
 
     if (!isMoveX) {
-      newGame[pcMove(game,length)] = aiPlayer;
+      newGame[pcMove(newGame,length)] = aiPlayer;
       setGame(newGame);
       setMoveX(true);
       }
 
-    wol = gameOver(newGame);
+    wol = gameOver(game);
     for (let index = 0; index < newGame.length; index++) {
-      if (newGame[index] === null) {
+      if (game[index] === null) {
         finished = false;
         break;
       }
