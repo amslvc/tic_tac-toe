@@ -136,10 +136,10 @@ function winning(game, player){
 }
 */
 
-  function pcMove(game, length){
+  function pcMove(currentState, length){
     var emptyFields = new Array(length).fill(0);
     for (var z=0,u=0; z<=length;z++){
-      if (game[z]===null) {
+      if (currentState[z]===null) {
         emptyFields[u]=z;
         u++;
        }
@@ -163,10 +163,8 @@ function winning(game, player){
 
     const newGame = game.slice();
     if (!game[index]) {
-      if(isMoveX){
       newGame[index] = huPlayer;
-      }
-      setMoveX(false);
+      //setMoveX(false);
       setGame(newGame);
     
     let finished = true;
@@ -193,13 +191,12 @@ function winning(game, player){
       }
     }
 
-    if (!isMoveX) {
       newGame[pcMove(newGame,length)] = aiPlayer;
       setGame(newGame);
-      setMoveX(true);
-      }
+      //setMoveX(true);
 
-    wol = gameOver(game);
+
+    wol = gameOver(newGame);
     for (let index = 0; index < newGame.length; index++) {
       if (game[index] === null) {
         finished = false;
