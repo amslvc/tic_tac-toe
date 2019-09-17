@@ -27,7 +27,6 @@ export default () => {
 var huPlayer = "X";
 // ai
 var aiPlayer = "O";
-
 /*
 //keeps count of function calls
 var fc = 0;
@@ -137,22 +136,27 @@ function winning(game, player){
 }
 */
 
-  function pcMove(game){
-    var emptyFields = new Array(game.length).fill(null);
-    for (var z=0,u=0; z<game.length;z++){
+  function pcMove(game, length){
+    var emptyFields = new Array(length).fill(0);
+    for (var z=0,u=0; z<=length;z++){
       if (game[z]===null) {
         emptyFields[u]=z;
         u++;
-      }
+       }
     }
-    const newGame = game.slice();
-    var id=1;
-    if (!isMoveX) {
-    newGame[id] = aiPlayer;
-    setGame(newGame);
-    setMoveX(!isMoveX);
-    }
+    
+    emptyFields=shuffle(emptyFields);
+    var id=emptyFields[0];
+    return id;
   }
+
+  function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
 
   function boxClicked(index) {
     if (winner != null) return;
@@ -162,9 +166,9 @@ function winning(game, player){
       if(isMoveX){
       newGame[index] = huPlayer;
       }
-      setMoveX(!isMoveX);
+      setMoveX(false);
       setGame(newGame);
-    }
+    
     let finished = true;
     wol = gameOver(newGame);
 
@@ -182,17 +186,26 @@ function winning(game, player){
     } else if (finished) {
       setWinner("D");
     }
+    var length=0;
+    for (let q=0;q<game.length;q++) {
+      if(game[q]===null){
+      length++;
+      }
+    }
 
-    pcMove(newGame);
+    if (!isMoveX) {
+      newGame[pcMove(game,length)] = aiPlayer;
+      setGame(newGame);
+      setMoveX(true);
+      }
+
     wol = gameOver(newGame);
-
     for (let index = 0; index < newGame.length; index++) {
       if (newGame[index] === null) {
         finished = false;
         break;
       }
     }
-
     if (wol === "X") {
       setWinner("X");
     } else if (wol === "O") {
@@ -200,6 +213,8 @@ function winning(game, player){
     } else if (finished) {
       setWinner("D");
     }
+
+  }
   }
 
   function reset() {
