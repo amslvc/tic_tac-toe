@@ -23,140 +23,138 @@ export default () => {
   const [owins, setOwins] = useState(0);
   const [draw, setDraws] = useState(0);
 
-// human
-var huPlayer = "X";
-// ai
-var aiPlayer = "O";
-/*
-//keeps count of function calls
-var fc = 0;
-
-// finding the ultimate play on the game that favors the computer
-var bestSpot = minimax(game, aiPlayer);
-
-//loging the results
-console.log("index: " + bestSpot.index);
-console.log("function calls: " + fc);
-
-// the main minimax function
-function minimax(game, player){
-  //add one to function calls
-  fc++;
+  // human
+  var huPlayer = "X";
+  // ai
+  var aiPlayer = "O";
+  /*
+  //keeps count of function calls
+  var fc = 0;
   
-  //available spots
-  var availSpots = emptyIndexies(game);
-
-  // checks for the terminal states such as win, lose, and tie and returning a value accordingly
-  if (winning(game, huPlayer)){
-     return {score:-10};
-  }
-	else if (winning(game, aiPlayer)){
-    return {score:10};
-	}
-  else if (availSpots.length === 0){
-  	return {score:0};
-  }
-
-// an array to collect all the objects
-  var moves = [];
-
-  // loop through available spots
-  for (var i = 0; i < availSpots.length; i++){
-    //create an object for each and store the index of that spot that was stored as a number in the object's index key
-    var move = {};
-  	move.index = game[availSpots[i]];
-
-    // set the empty spot to the current player
-    game[availSpots[i]] = player;
-
-    //if collect the score resulted from calling minimax on the opponent of the current player
-    if (player === aiPlayer){
-      var result = minimax(game, huPlayer);
-      move.score = result.score;
+  // finding the ultimate play on the game that favors the computer
+  var bestSpot = minimax(game, aiPlayer);
+  
+  //loging the results
+  console.log("index: " + bestSpot.index);
+  console.log("function calls: " + fc);
+  
+  // the main minimax function
+  function minimax(game, player){
+    //add one to function calls
+    fc++;
+    
+    //available spots
+    var availSpots = emptyIndexies(game);
+  
+    // checks for the terminal states such as win, lose, and tie and returning a value accordingly
+    if (winning(game, huPlayer)){
+       return {score:-10};
     }
-    else{
-      var result = minimax(game, aiPlayer);
-      move.score = result.score;
+    else if (winning(game, aiPlayer)){
+      return {score:10};
     }
-
-    //reset the spot to empty
-    game[availSpots[i]] = move.index;
-
-    // push the object to the array
-    moves.push(move);
-  }
-
-// if it is the computer's turn loop over the moves and choose the move with the highest score
-  var bestMove;
-  if(player === aiPlayer){
-    var bestScore = -10000;
-    for(var i = 0; i < moves.length; i++){
-      if(moves[i].score > bestScore){
-        bestScore = moves[i].score;
-        bestMove = i;
+    else if (availSpots.length === 0){
+      return {score:0};
+    }
+  
+  // an array to collect all the objects
+    var moves = [];
+  
+    // loop through available spots
+    for (var i = 0; i < availSpots.length; i++){
+      //create an object for each and store the index of that spot that was stored as a number in the object's index key
+      var move = {};
+      move.index = game[availSpots[i]];
+  
+      // set the empty spot to the current player
+      game[availSpots[i]] = player;
+  
+      //if collect the score resulted from calling minimax on the opponent of the current player
+      if (player === aiPlayer){
+        var result = minimax(game, huPlayer);
+        move.score = result.score;
+      }
+      else{
+        var result = minimax(game, aiPlayer);
+        move.score = result.score;
+      }
+  
+      //reset the spot to empty
+      game[availSpots[i]] = move.index;
+  
+      // push the object to the array
+      moves.push(move);
+    }
+  
+  // if it is the computer's turn loop over the moves and choose the move with the highest score
+    var bestMove;
+    if(player === aiPlayer){
+      var bestScore = -10000;
+      for(var i = 0; i < moves.length; i++){
+        if(moves[i].score > bestScore){
+          bestScore = moves[i].score;
+          bestMove = i;
+        }
+      }
+    }else{
+  
+  // else loop over the moves and choose the move with the lowest score
+      var bestScore = 10000;
+      for(var i = 0; i < moves.length; i++){
+        if(moves[i].score < bestScore){
+          bestScore = moves[i].score;
+          bestMove = i;
+        }
       }
     }
-  }else{
-
-// else loop over the moves and choose the move with the lowest score
-    var bestScore = 10000;
-    for(var i = 0; i < moves.length; i++){
-      if(moves[i].score < bestScore){
-        bestScore = moves[i].score;
-        bestMove = i;
-      }
-    }
+  
+  // return the chosen move (object) from the array to the higher depth
+    return moves[bestMove];
   }
+  
+  // returns the available spots on the game
+  function emptyIndexies(game){
+    return  game.filter(s => s !== "O" && s !== "X");
+  }
+  
+  // winning combinations using the game indexies for instace the first win could be 3 xes in a row
+  function winning(game, player){
+   if (
+          (game[0] === player && game[1] === player && game[2] === player) ||
+          (game[3] === player && game[4] === player && game[5] === player) ||
+          (game[6] === player && game[7] === player && game[8] === player) ||
+          (game[0] === player && game[3] === player && game[6] === player) ||
+          (game[1] === player && game[4] === player && game[7] === player) ||
+          (game[2] === player && game[5] === player && game[8] === player) ||
+          (game[0] === player && game[4] === player && game[8] === player) ||
+          (game[2] === player && game[4] === player && game[6] === player)
+          ) {
+          return true;
+      } else {
+          return false;
+      }
+  }
+  */
 
-// return the chosen move (object) from the array to the higher depth
-  return moves[bestMove];
-}
-
-// returns the available spots on the game
-function emptyIndexies(game){
-  return  game.filter(s => s !== "O" && s !== "X");
-}
-
-// winning combinations using the game indexies for instace the first win could be 3 xes in a row
-function winning(game, player){
- if (
-        (game[0] === player && game[1] === player && game[2] === player) ||
-        (game[3] === player && game[4] === player && game[5] === player) ||
-        (game[6] === player && game[7] === player && game[8] === player) ||
-        (game[0] === player && game[3] === player && game[6] === player) ||
-        (game[1] === player && game[4] === player && game[7] === player) ||
-        (game[2] === player && game[5] === player && game[8] === player) ||
-        (game[0] === player && game[4] === player && game[8] === player) ||
-        (game[2] === player && game[4] === player && game[6] === player)
-        ) {
-        return true;
-    } else {
-        return false;
-    }
-}
-*/
-
-  function pcMove(currentState, length){
+  function pcMove(currentState, length) {
     var emptyFields = new Array(length).fill(0);
-    for (var z=0,u=0; z<=length;z++){
-      if (currentState[z]===null) {
-        emptyFields[u]=z;
+    for (var z = 0, u = 0; z < currentState.length; z++) {
+      if (currentState[z] === null) {
+        emptyFields[u] = z;
         u++;
-       }
+      }
     }
-
-    emptyFields=shuffle(emptyFields);
-    var id=emptyFields[0];
-    return id;
+    emptyFields = shuffle(emptyFields);
+    return emptyFields[0];
   }
 
   function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
     }
     return a;
-}
+  }
 
   function boxClicked(index) {
     if (winner != null) return;
@@ -166,52 +164,53 @@ function winning(game, player){
       newGame[index] = huPlayer;
       //setMoveX(false);
       setGame(newGame);
-    
-    let finished = true;
-    wol = gameOver(newGame);
 
-    for (let index = 0; index < game.length; index++) {
-      if (newGame[index] === null) {
-        finished = false;
-        break;
+      let finished = true;
+      wol = gameOver(newGame);
+
+      for (let index = 0; index < game.length; index++) {
+        if (newGame[index] === null) {
+          finished = false;
+          break;
+        }
+      }
+
+      if (wol === "X") {
+        setWinner("X");
+      } else if (wol === "O") {
+        setWinner("O");
+      } else if (finished) {
+        setWinner("D");
+      }
+      var length = 0;
+      for (let q = 0; q < game.length; q++) {
+        if (game[q] === null) {
+          length++;
+        }
+      }
+      if (winner === null) {
+        newGame[pcMove(newGame, length)] = aiPlayer;
+        setGame(newGame);
+        //setMoveX(true);
+
+        wol = gameOver(newGame);
+        for (let index = 0; index < newGame.length; index++) {
+          if (game[index] === null) {
+            finished = false;
+            break;
+          }
+        }
+
+        if (wol === "X") {
+          setWinner("X");
+        } else if (wol === "O") {
+          setWinner("O");
+        } else if (finished) {
+          setWinner("D");
+        }
+
       }
     }
-
-    if (wol === "X") {
-      setWinner("X");
-    } else if (wol === "O") {
-      setWinner("O");
-    } else if (finished) {
-      setWinner("D");
-    }
-    var length=0;
-    for (let q=0;q<game.length;q++) {
-      if(game[q]===null){
-      length++;
-      }
-    }
-
-      newGame[pcMove(newGame,length)] = aiPlayer;
-      setGame(newGame);
-      //setMoveX(true);
-
-
-    wol = gameOver(newGame);
-    for (let index = 0; index < newGame.length; index++) {
-      if (game[index] === null) {
-        finished = false;
-        break;
-      }
-    }
-    if (wol === "X") {
-      setWinner("X");
-    } else if (wol === "O") {
-      setWinner("O");
-    } else if (finished) {
-      setWinner("D");
-    }
-
-  }
   }
 
   function reset() {
@@ -267,7 +266,7 @@ function winning(game, player){
             key={index}
             className="Box"
             id={index}
-            style={{color: winningLane.includes(index) ? "green" : "inherit"}}>
+            style={{ color: winningLane.includes(index) ? "green" : "inherit" }}>
             {value}
           </div>
         ))}
