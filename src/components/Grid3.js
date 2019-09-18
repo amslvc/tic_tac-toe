@@ -136,7 +136,13 @@ export default () => {
       }
   }
   */
-
+  function evaluateMove(currentState,emptyFields){
+    let grade = 0;
+    let tempGame = currentState.slice();
+    let counter = 0;
+    
+    return grade;
+  }
   function pcMove(currentState) {
     const emptyFields = currentState.reduce((acc, val, i) => {
       if (val === null) {
@@ -144,6 +150,13 @@ export default () => {
       }
       return acc;
     }, []);
+
+
+
+
+
+
+
     const randomIndex=Math.floor(Math.random() * emptyFields.length);
     return emptyFields[randomIndex];
   }
