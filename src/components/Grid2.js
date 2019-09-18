@@ -241,14 +241,6 @@ export default () => {
       count = 0;
     }
 
-
-
-
-
-
-
-
-
     for (let i = 0; i < winConditions.length; i++) {
       for (let j = 0; j < 3; j++) {
         if (newGame[winConditions[i][j]] === "O") {
