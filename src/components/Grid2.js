@@ -164,7 +164,8 @@ export default () => {
       setGame(newGame);
 
       let finished = true;
-      wol = gameOver(newGame);
+      wol = gameOver(newGame,aiPlayer);
+      wol = gameOver(newGame,huPlayer);
 
       for (let index = 0; index < game.length; index++) {
         if (newGame[index] === null) {
@@ -193,7 +194,8 @@ export default () => {
         setMoveX(true);
         }
 
-        wol = gameOver(newGame);
+        wol = gameOver(newGame,aiPlayer);
+        wol = gameOver(newGame,huPlayer);
         for (let index = 0; index < newGame.length; index++) {
           if (game[index] === null) {
             finished = false;
@@ -226,29 +228,15 @@ export default () => {
     setWinningLane([]);
   }
 
-  function gameOver(newGame) {
+  function gameOver(newGame,player) {
     for (let i = 0; i < winConditions.length; i++) {
       for (let j = 0; j < winConditions[0].length; j++) {
-        if (newGame[winConditions[i][j]] === "X") {
+        if (newGame[winConditions[i][j]] === player) {
           count++;
         }
         if (count === 3) {
           setWinningLane(winConditions[i]);
-          wol = "X";
-          return wol;
-        } else wol = "D";
-      }
-      count = 0;
-    }
-
-    for (let i = 0; i < winConditions.length; i++) {
-      for (let j = 0; j < 3; j++) {
-        if (newGame[winConditions[i][j]] === "O") {
-          count++;
-        }
-        if (count === 3) {
-          setWinningLane(winConditions[i]);
-          wol = "O";
+          wol = player;
           return wol;
         } else wol = "D";
       }
