@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 export default () => {
   let wol;
-  let count;
 
   const winConditions = [
     [0, 1, 2],
@@ -62,6 +61,7 @@ export default () => {
   }
 
   function gameOver(newGame) {
+    let count=0;
     for (let i = 0; i < winConditions.length; i++) {
       for (let j = 0; j < 3; j++) {
         if (newGame[winConditions[i][j]] === "X") {
