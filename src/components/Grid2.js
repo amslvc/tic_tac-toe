@@ -24,9 +24,9 @@ export default () => {
   const [draw, setDraws] = useState(0);
 
   // human
-  var huPlayer = "X";
+  let huPlayer = "X";
   // ai
-  var aiPlayer = "O";
+  let aiPlayer = "O";
   /*
   //keeps count of function calls
   var fc = 0;
@@ -137,22 +137,16 @@ export default () => {
   */
 
   function pcMove(currentState) {
-    var emptyFields = [];
-    for (var z = 0; z < currentState.length; z++) {
-      if (currentState[z] === null) {
-        emptyFields.push(z);
+    const emptyFields = currentState.reduce((acc, val, i) => {
+      if (val === null) {
+        acc.push(i);
       }
-    }
-    shuffle(emptyFields);
-    return emptyFields[0];
+      return acc;
+    }, []);
+    const randomIndex=Math.floor(Math.random() * emptyFields.length);
+    return emptyFields[randomIndex];
   }
 
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
 
   function boxClicked(index) {
     if (winner != null) return;
@@ -164,8 +158,8 @@ export default () => {
       setGame(newGame);
 
       let finished = true;
-      wol = gameOver(newGame,aiPlayer);
-      wol = gameOver(newGame,huPlayer);
+      wol = gameOver(newGame, aiPlayer);
+      wol = gameOver(newGame, huPlayer);
 
       for (let index = 0; index < game.length; index++) {
         if (newGame[index] === null) {
@@ -181,21 +175,21 @@ export default () => {
       } else if (finished) {
         setWinner("D");
       }
-      var length = 0;
+      let length = 0;
       for (let q = 0; q < game.length; q++) {
         if (game[q] === null) {
           length++;
         }
       }
-      if (winner === null ) {
-        if(wol !== "X"){
-        newGame[pcMove(newGame, length)] = aiPlayer;
-        setGame(newGame);
-        setMoveX(true);
+      if (winner === null) {
+        if (wol !== "X") {
+          newGame[pcMove(newGame, length)] = aiPlayer;
+          setGame(newGame);
+          setMoveX(true);
         }
 
-        wol = gameOver(newGame,aiPlayer);
-        wol = gameOver(newGame,huPlayer);
+        wol = gameOver(newGame, aiPlayer);
+        wol = gameOver(newGame, huPlayer);
         for (let index = 0; index < newGame.length; index++) {
           if (game[index] === null) {
             finished = false;
@@ -212,7 +206,7 @@ export default () => {
         }
 
       }
-      
+
       console.log(game.toString());
     }
   }
@@ -228,7 +222,7 @@ export default () => {
     setWinningLane([]);
   }
 
-  function gameOver(newGame,player) {
+  function gameOver(newGame, player) {
     for (let i = 0; i < winConditions.length; i++) {
       for (let j = 0; j < winConditions[0].length; j++) {
         if (newGame[winConditions[i][j]] === player) {
