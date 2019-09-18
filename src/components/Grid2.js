@@ -136,24 +136,22 @@ export default () => {
   }
   */
 
-  function pcMove(currentState, length) {
-    var emptyFields = new Array(length).fill(0);
-    for (var z = 0, u = 0; z < currentState.length; z++) {
+  function pcMove(currentState) {
+    var emptyFields = [];
+    for (var z = 0; z < currentState.length; z++) {
       if (currentState[z] === null) {
-        emptyFields[u] = z;
-        u++;
+        emptyFields.push(z);
       }
     }
-    emptyFields = shuffle(emptyFields);
+    shuffle(emptyFields);
     return emptyFields[0];
   }
 
-  function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
     }
-    return a;
   }
 
   function boxClicked(index) {
@@ -162,7 +160,7 @@ export default () => {
     const newGame = game.slice();
     if (!game[index]) {
       newGame[index] = huPlayer;
-      //setMoveX(false);
+      setMoveX(false);
       setGame(newGame);
 
       let finished = true;
@@ -188,10 +186,12 @@ export default () => {
           length++;
         }
       }
-      if (winner === null) {
+      if (winner === null ) {
+        if(wol !== "X"){
         newGame[pcMove(newGame, length)] = aiPlayer;
         setGame(newGame);
-        //setMoveX(true);
+        setMoveX(true);
+        }
 
         wol = gameOver(newGame);
         for (let index = 0; index < newGame.length; index++) {
@@ -210,6 +210,8 @@ export default () => {
         }
 
       }
+      
+      console.log(game.toString());
     }
   }
 
@@ -226,7 +228,7 @@ export default () => {
 
   function gameOver(newGame) {
     for (let i = 0; i < winConditions.length; i++) {
-      for (let j = 0; j < 3; j++) {
+      for (let j = 0; j < winConditions[0].length; j++) {
         if (newGame[winConditions[i][j]] === "X") {
           count++;
         }
@@ -238,6 +240,15 @@ export default () => {
       }
       count = 0;
     }
+
+
+
+
+
+
+
+
+
     for (let i = 0; i < winConditions.length; i++) {
       for (let j = 0; j < 3; j++) {
         if (newGame[winConditions[i][j]] === "O") {
