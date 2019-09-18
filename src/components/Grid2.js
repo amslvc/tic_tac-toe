@@ -78,7 +78,7 @@ export default () => {
       }
       if (winner === null) {
         if (wol !== huPlayer) {
-          newGame[pcMove(newGame, length)] = aiPlayer;
+          newGame[pcMove(newGame)] = aiPlayer;
           setGame(newGame);
           setMoveX(true);
         }
