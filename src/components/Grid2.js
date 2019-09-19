@@ -109,7 +109,7 @@ export default () => {
     const newGame = game.slice().fill(null);
     if (winner === huPlayer) setXwins(xwins + 1);
     if (winner === aiPlayer) setOwins(owins + 1);
-    if (winner === "D") setDraws(draw + 1);
+    if (winner === "D") setDraws(draws + 1);
     setGame(newGame);
     setMoveX(true);
     setWinner(null);
