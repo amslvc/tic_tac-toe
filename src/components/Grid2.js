@@ -28,18 +28,26 @@ export default () => {
   let aiPlayer = "O";
   // draw
   let draw = "D";
- 
+
   function pcMove(currentState) {
-    const emptyFields = currentState.reduce((acc, val, i) => {
+    const emptyFields2 = currentState.reduce((initial, val, i) => {
       if (val === null) {
-        acc.push(i);
+        initial.push(i);
       }
-      return acc;
+      return initial;
     }, []);
-    const randomIndex=Math.floor(Math.random() * emptyFields.length);
+
+    const emptyFields = [];
+    for (let i = 0; i < currentState.length; i++) {
+      if (currentState[i] === null) {
+        emptyFields.push(i);
+      }
+    }
+
+    //const emptyFields = currentState.map((x,i)=>x===null ? i : false).filter(x=>x!==false);
+    const randomIndex = Math.floor(Math.random() * emptyFields.length);
     return emptyFields[randomIndex];
   }
-
 
   function boxClicked(index) {
     if (winner != null) return;
@@ -51,7 +59,7 @@ export default () => {
       setGame(newGame);
 
       let finished = true;
-    
+
       for (let index = 0; index < game.length; index++) {
         if (newGame[index] === null) {
           finished = false;
@@ -59,9 +67,8 @@ export default () => {
         }
       }
 
-      if(wol !== huPlayer) wol = gameOver(newGame, aiPlayer);
-      if(wol !== aiPlayer) wol = gameOver(newGame, huPlayer);
-      
+      if (wol !== huPlayer) wol = gameOver(newGame, aiPlayer);
+      if (wol !== aiPlayer) wol = gameOver(newGame, huPlayer);
 
       if (wol === huPlayer) {
         setWinner(huPlayer);
@@ -70,12 +77,7 @@ export default () => {
       } else if (finished) {
         setWinner(draw);
       }
-      let length = 0;
-      for (let q = 0; q < game.length; q++) {
-        if (game[q] === null) {
-          length++;
-        }
-      }
+
       if (winner === null) {
         if (wol !== huPlayer) {
           newGame[pcMove(newGame)] = aiPlayer;
@@ -83,8 +85,8 @@ export default () => {
           setMoveX(true);
         }
 
-        if(wol !== huPlayer)wol = gameOver(newGame, aiPlayer);
-        if(wol !== aiPlayer)wol = gameOver(newGame, huPlayer);
+        if (wol !== huPlayer) wol = gameOver(newGame, aiPlayer);
+        if (wol !== aiPlayer) wol = gameOver(newGame, huPlayer);
 
         for (let index = 0; index < newGame.length; index++) {
           if (game[index] === null) {
@@ -100,7 +102,6 @@ export default () => {
         } else if (finished) {
           setWinner(draw);
         }
-
       }
     }
   }
@@ -117,7 +118,7 @@ export default () => {
   }
 
   function gameOver(newGame, player) {
-    let count=0;
+    let count = 0;
     for (let i = 0; i < winConditions.length; i++) {
       for (let j = 0; j < winConditions[0].length; j++) {
         if (newGame[winConditions[i][j]] === player) {
