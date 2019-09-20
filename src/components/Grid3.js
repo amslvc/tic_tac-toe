@@ -39,25 +39,25 @@ export default () => {
         };
         for (let k = 0; k < currentState.length; k++) {
             let grade = 0;
+            if (currentState[k] === aiPlayer || currentState[k] === huPlayer) { continue };
             let tempGame = currentState.slice();
-            if (tempGame[k] !== null) { continue };
             tempGame[k] = aiPlayer;
             for (let i = 0; i < winConditions.length; i++) {
                 for (let j = 0; j < winConditions[0].length; j++) {
                     if (tempGame[winConditions[i][j]] === aiPlayer) num_of_ai++;
                     if (tempGame[winConditions[i][j]] === huPlayer) num_of_hu++;
                     if (tempGame[winConditions[i][j]] === null) nulls++;
+                    if (num_of_ai === 3 && nulls === 0 && num_of_hu === 0) return k;
                 }
-
-                if (num_of_ai === 3) return k;
-                if (nulls === 0 && num_of_ai === 1 && num_of_hu === 2) return k;
+                if (nulls === 0 && num_of_ai === 1 && num_of_hu === 2) grade += 1000;
                 if (nulls === 1 && num_of_ai === 0 && num_of_hu === 2){break;}
-                if (num_of_ai === 2 && nulls === 1) grade += 10;
-                if (num_of_ai === 1 && nulls === 2) grade += 10;
+                if (num_of_ai === 2 && nulls === 1 && num_of_hu === 0) grade += 11;
+                if (num_of_ai === 1 && nulls === 2 && num_of_hu === 0) grade += 2;
                 if (num_of_ai === 1 && nulls === 1 && num_of_hu === 1) grade -= 10;
-                if (nulls === 2 && num_of_ai === 0 && num_of_hu === 1) grade -= 10;
+                if (nulls === 2 && num_of_ai === 0 && num_of_hu === 1) grade -= 1;
 
                 num_of_ai = 0;
+                num_of_hu = 0;
                 nulls = 0;
             }
             if (tempmove.grade < grade) {
@@ -65,7 +65,6 @@ export default () => {
                 tempmove.grade = grade;
             }
         }
-
         return tempmove.move;
     }
 
