@@ -11,7 +11,7 @@ export default () => {
         [1, 4, 7],
         [2, 5, 8],
         [0, 4, 8],
-        [6, 4, 2]
+        [2, 4, 6]
     ];
 
     const [game, setGame] = useState(new Array(9).fill(null));
@@ -32,28 +32,30 @@ export default () => {
     function pcMove(currentState) {
         let nulls = 0;
         let num_of_ai = 0;
+        let num_of_hu = 0;
         let tempmove = {
             move: 0,
             grade: 0
         };
-        let grade = 0;
         for (let k = 0; k < currentState.length; k++) {
+            let grade = 0;
             let tempGame = currentState.slice();
             if (tempGame[k] !== null) { continue };
             tempGame[k] = aiPlayer;
             for (let i = 0; i < winConditions.length; i++) {
                 for (let j = 0; j < winConditions[0].length; j++) {
                     if (tempGame[winConditions[i][j]] === aiPlayer) num_of_ai++;
+                    if (tempGame[winConditions[i][j]] === huPlayer) num_of_hu++;
                     if (tempGame[winConditions[i][j]] === null) nulls++;
                 }
 
                 if (num_of_ai === 3) return k;
-                if (nulls === 0 && num_of_ai === 1) return k;
-
-                if (nulls === 1 && num_of_ai === 0) grade -= 100;
-                if (num_of_ai === 2 && nulls === 1) grade += 100;
+                if (nulls === 0 && num_of_ai === 1 && num_of_hu === 2) return k;
+                if (nulls === 1 && num_of_ai === 0 && num_of_hu === 2){break;}
+                if (num_of_ai === 2 && nulls === 1) grade += 10;
                 if (num_of_ai === 1 && nulls === 2) grade += 10;
-                if (nulls === 2 && num_of_ai === 0) grade -= 10;
+                if (num_of_ai === 1 && nulls === 1 && num_of_hu === 1) grade -= 10;
+                if (nulls === 2 && num_of_ai === 0 && num_of_hu === 1) grade -= 10;
 
                 num_of_ai = 0;
                 nulls = 0;
@@ -62,11 +64,10 @@ export default () => {
                 tempmove.move = k;
                 tempmove.grade = grade;
             }
-            grade = 0;
         }
+
         return tempmove.move;
     }
-
 
     function boxClicked(index) {
         if (winner != null) return;
@@ -90,7 +91,6 @@ export default () => {
                     setMoveX(true);
                 }
             }
-
             checkGameState(newGame);
         }
     }

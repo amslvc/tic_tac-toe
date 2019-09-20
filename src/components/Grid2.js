@@ -43,7 +43,7 @@ export default () => {
         emptyFields.push(i);
       }
     }
-
+    
     //const emptyFields = currentState.map((x,i)=>x===null ? i : false).filter(x=>x!==false);
     const randomIndex = Math.floor(Math.random() * emptyFields.length);
     return emptyFields[randomIndex];
