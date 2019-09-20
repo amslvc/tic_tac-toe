@@ -126,7 +126,6 @@ export default () => {
         }
         if (count === 3) {
           setWinningLane(winConditions[i]);
-          console.log(winningLane);
           wol = player;
           return wol;
         }
