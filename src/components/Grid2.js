@@ -30,20 +30,21 @@ export default () => {
   let draw = "D";
 
   function pcMove(currentState) {
-    const emptyFields2 = currentState.reduce((initial, val, i) => {
+
+    const emptyFields = currentState.reduce((initial, val, i) => {
       if (val === null) {
         initial.push(i);
       }
       return initial;
     }, []);
-
+/*
     const emptyFields = [];
     for (let i = 0; i < currentState.length; i++) {
       if (currentState[i] === null) {
         emptyFields.push(i);
       }
     }
-    
+*/    
     //const emptyFields = currentState.map((x,i)=>x===null ? i : false).filter(x=>x!==false);
     const randomIndex = Math.floor(Math.random() * emptyFields.length);
     return emptyFields[randomIndex];
