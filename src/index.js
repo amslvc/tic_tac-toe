@@ -15,7 +15,7 @@ function App() {
       <h1>Tic-Tac-Toe Random Computer vs. Player</h1>
       <Grid2/>
 
-      <h1>Tic-Tac-Toe Player (X) vs. AI Computer (O)</h1>
+      <h1>Tic-Tac-Toe Player (X) vs. Al Gorythm (O)</h1>
       <Grid3/>
     </div>
   );
