@@ -21,6 +21,7 @@ export default () => {
     const [xwins, setXwins] = useState(0);
     const [owins, setOwins] = useState(0);
     const [draws, setDraws] = useState(0);
+    const [firstMove, setfirstMove] = useState(true);
 
     // human
     let huPlayer = "X";
@@ -37,6 +38,16 @@ export default () => {
             move: 0,
             grade: 0
         };
+        let corners = [0, 2, 6, 8]
+        //TODO
+        //find out if its possible for the hu Player to fork in next move if yes block it
+        if (firstMove) {
+            setfirstMove(false);
+            for (let l = 0; l < corners.length; l++) {
+                if (currentState[corners[l]] === huPlayer) return corners[l + 1];
+            }
+        }
+
         for (let k = 0; k < currentState.length; k++) {
             let grade = 0;
             if (currentState[k] === aiPlayer || currentState[k] === huPlayer) { continue };
@@ -50,7 +61,7 @@ export default () => {
                     if (num_of_ai === 3 && nulls === 0 && num_of_hu === 0) return k;
                 }
                 if (nulls === 0 && num_of_ai === 1 && num_of_hu === 2) grade += 1000;
-                if (nulls === 1 && num_of_ai === 0 && num_of_hu === 2){break;}
+                if (nulls === 1 && num_of_ai === 0 && num_of_hu === 2) { break; }
                 if (num_of_ai === 2 && nulls === 1 && num_of_hu === 0) grade += 11;
                 if (num_of_ai === 1 && nulls === 2 && num_of_hu === 0) grade += 2;
                 if (num_of_ai === 1 && nulls === 1 && num_of_hu === 1) grade -= 10;
@@ -103,6 +114,7 @@ export default () => {
         setMoveX(true);
         setWinner(null);
         setWinningLane([]);
+        setfirstMove(true);
     }
 
     function checkGameState(newGame) {
