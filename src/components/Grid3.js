@@ -226,7 +226,7 @@ export default () => {
                 <button onClick={reset}>New Game</button>
             </div>
             <h3>
-                X Wins = {xwins} --- Draws = {draws} --- O Wins = {owins}
+                Player Wins = {xwins} --- Draws = {draws} --- Computer Wins = {owins}
             </h3>
         </div>
     );
