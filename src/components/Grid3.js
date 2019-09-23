@@ -39,7 +39,10 @@ export default () => {
             move: 0,
             grade: 0
         };
-        let corners = [0, 2, 6, 8];
+        let corners = [0, 2, 6, 8]
+        let diagonalCorners = [
+            [0, 8],
+            [2, 6]]
         let sides = [1, 3, 5, 7];
         let middle = 4;
 
@@ -51,17 +54,14 @@ export default () => {
                 }
             }
         }
-        //Fehler falls 2 corners in einer reihe sind 
         if (isForkTry) {
-            let cCorners = 0;
             setIsForkTry(false);
-            for (let q = 0; q < corners.length; q++) {
-                if (currentState[corners[q]] !== null) cCorners++;
-            }
-            if (cCorners >= 2) {
-                for (let p = 0; p < sides.length; p++) {
-                    if (currentState[sides[p]] === null) {
-                        return sides[p];
+            for (let q = 0; q < diagonalCorners.length; q++) {
+                let cCorners=0;
+                for (let p = 0; p<diagonalCorners[q].length; p++){
+                    if(currentState[diagonalCorners[q][p]]===huPlayer)cCorners++;
+                    if(cCorners>=2){
+                        return sides[0];
                     }
                 }
             }
@@ -97,28 +97,28 @@ export default () => {
         }
         return tempmove.move;
     }
-/*
-    //check if the human player can make a fork with his next move
-    function checkFork(currentState) {
-        let num_of_hu = 0;
-        let forkCounter = 0;
-        for (let m = 0; m < currentState.length; m++) {
-            if (currentState[m] === aiPlayer || currentState[m] === huPlayer) { continue };
-            let tempState = currentState.slice();
-            tempState[m] = huPlayer;
-            for (let n = 0; n < winConditions.length; n++) {
-                for (let o = 0; o < winConditions[0].length; o++) {
-                    if (tempState[winConditions[n][o]] === huPlayer) num_of_hu++
-                    if (num_of_hu === 2) forkCounter++;
+    /*
+        //check if the human player can make a fork with his next move
+        function checkFork(currentState) {
+            let num_of_hu = 0;
+            let forkCounter = 0;
+            for (let m = 0; m < currentState.length; m++) {
+                if (currentState[m] === aiPlayer || currentState[m] === huPlayer) { continue };
+                let tempState = currentState.slice();
+                tempState[m] = huPlayer;
+                for (let n = 0; n < winConditions.length; n++) {
+                    for (let o = 0; o < winConditions[0].length; o++) {
+                        if (tempState[winConditions[n][o]] === huPlayer) num_of_hu++
+                        if (num_of_hu === 2) forkCounter++;
+                    }
+                    if (forkCounter >= 2) return true;
                 }
-                if (forkCounter >= 2) return true;
+                forkCounter = 0;
+    
             }
-            forkCounter = 0;
-
+            return false;
         }
-        return false;
-    }
-    */
+        */
 
     function boxClicked(index) {
         if (winner != null) return;
