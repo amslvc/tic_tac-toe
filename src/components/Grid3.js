@@ -22,6 +22,7 @@ export default () => {
     const [owins, setOwins] = useState(0);
     const [draws, setDraws] = useState(0);
     const [firstMove, setfirstMove] = useState(true);
+    const [isForkTry, setIsForkTry] = useState(true);
 
     // human
     let huPlayer = "X";
@@ -38,13 +39,31 @@ export default () => {
             move: 0,
             grade: 0
         };
-        let corners = [0, 2, 6, 8]
-        //TODO
-        //find out if its possible for the hu Player to fork in next move if yes block it
+        let corners = [0, 2, 6, 8];
+        let sides = [1, 3, 5, 7];
+        let middle = 4;
+
         if (firstMove) {
             setfirstMove(false);
             for (let l = 0; l < corners.length; l++) {
-                if (currentState[corners[l]] === huPlayer) return corners[l + 1];
+                if (currentState[corners[l]] === huPlayer) {
+                    return middle;
+                }
+            }
+        }
+        //Fehler falls 2 corners in einer reihe sind 
+        if (isForkTry) {
+            let cCorners = 0;
+            setIsForkTry(false);
+            for (let q = 0; q < corners.length; q++) {
+                if (currentState[corners[q]] !== null) cCorners++;
+            }
+            if (cCorners >= 2) {
+                for (let p = 0; p < sides.length; p++) {
+                    if (currentState[sides[p]] === null) {
+                        return sides[p];
+                    }
+                }
             }
         }
 
@@ -62,9 +81,9 @@ export default () => {
                 }
                 if (nulls === 0 && num_of_ai === 1 && num_of_hu === 2) grade += 1000;
                 if (nulls === 1 && num_of_ai === 0 && num_of_hu === 2) { break; }
-                if (num_of_ai === 2 && nulls === 1 && num_of_hu === 0) grade += 11;
-                if (num_of_ai === 1 && nulls === 2 && num_of_hu === 0) grade += 2;
-                if (num_of_ai === 1 && nulls === 1 && num_of_hu === 1) grade -= 10;
+                if (num_of_ai === 2 && nulls === 1 && num_of_hu === 0) grade += 100;
+                if (num_of_ai === 1 && nulls === 2 && num_of_hu === 0) grade += 1;
+                if (num_of_ai === 1 && nulls === 1 && num_of_hu === 1) grade += 10;
                 if (nulls === 2 && num_of_ai === 0 && num_of_hu === 1) grade -= 1;
 
                 num_of_ai = 0;
@@ -78,6 +97,28 @@ export default () => {
         }
         return tempmove.move;
     }
+/*
+    //check if the human player can make a fork with his next move
+    function checkFork(currentState) {
+        let num_of_hu = 0;
+        let forkCounter = 0;
+        for (let m = 0; m < currentState.length; m++) {
+            if (currentState[m] === aiPlayer || currentState[m] === huPlayer) { continue };
+            let tempState = currentState.slice();
+            tempState[m] = huPlayer;
+            for (let n = 0; n < winConditions.length; n++) {
+                for (let o = 0; o < winConditions[0].length; o++) {
+                    if (tempState[winConditions[n][o]] === huPlayer) num_of_hu++
+                    if (num_of_hu === 2) forkCounter++;
+                }
+                if (forkCounter >= 2) return true;
+            }
+            forkCounter = 0;
+
+        }
+        return false;
+    }
+    */
 
     function boxClicked(index) {
         if (winner != null) return;
@@ -115,6 +156,7 @@ export default () => {
         setWinner(null);
         setWinningLane([]);
         setfirstMove(true);
+        setIsForkTry(true);
     }
 
     function checkGameState(newGame) {
